@@ -1,4 +1,3 @@
-// Room.h
 #ifndef ROOM_H
 #define ROOM_H
 
@@ -10,7 +9,7 @@ class Room {
 private:
     string name;
     string description;
-    vector<string> actions;  // Vector to store multiple actions
+    vector<string> actions;
     string item;
 
 public:

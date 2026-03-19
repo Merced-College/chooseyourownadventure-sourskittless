@@ -1,7 +1,8 @@
 CXX = g++
 CXXFLAGS = -std=c++11
 TARGET = adventure
-SOURCES = main.cpp LinkedList.cpp Room.cpp
+# Updated to include new Ally and Food files
+SOURCES = main.cpp LinkedList.cpp Room.cpp Ally.cpp Food.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 
 all: $(TARGET)

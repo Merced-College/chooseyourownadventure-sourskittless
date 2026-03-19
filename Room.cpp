@@ -1,4 +1,3 @@
-// Room.cpp
 #include "Room.h"
 
 Room::Room(string name, string description, vector<string> actions, string item)
@@ -12,6 +11,7 @@ string Room::getName() const { return name; }
 string Room::getDescription() const { return description; }
 vector<string> Room::getActions() const { return actions; }
 string Room::getItem() const { return item; }
+
 string Room::toString() const {
     string info = "Room: " + name + "\nDescription: " + description + "\nActions:\n";
     for (const auto& action : actions) {

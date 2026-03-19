@@ -1,24 +1,22 @@
 #include <fstream>
 #include <sstream>
+#include <iostream>
 #include "LinkedList.h"
+#include "Ally.h"
+#include "Food.h"
+
+using namespace std;
 
 void introduction() {
     cout << "Welcome to the Castle Adventure!\n";
-    cout << "You will navigate through various rooms in the castle, encountering challenges and making decisions that will determine your path.\n";
-    cout << "Choose your actions wisely. Let's start your journey!\n\n";
+    cout << "Navigate the rooms and survive!\n\n";
 }
-
-
-#include <fstream>
-#include <sstream>
-#include "LinkedList.h"
 
 int main() {
     LinkedList castleRooms;
     ifstream file("rooms.csv");
     string line;
 
-    // Reading rooms from the CSV file
     if (file.is_open()) {
         while (getline(file, line)) {
             stringstream ss(line);
@@ -40,41 +38,47 @@ int main() {
             castleRooms.addRoom(newRoom);
         }
         file.close();
-    } else {
-        cout << "Unable to open file" << endl;
-        return 1;
     }
 
-    // Introduction
     introduction();
 
-    // Interaction with rooms
     auto current = castleRooms.getHead();
     while (current != nullptr) {
         cout << current->room.toString() << endl;
 
-        // Display actions for the current room
+        // Trigger Ally in the Throne Room
+        if (current->room.getName() == "Throne Room") {
+            Ally king("The King", "I seek a hero to save this realm.");
+            king.interact();
+        }
+
+        // Trigger Food if the room has a Magic Scroll
+        if (current->room.getItem() == "Magic Scroll") {
+            Food snack("Royal Apple", 10);
+            snack.consume();
+        }
+
         int actionNum = 1;
-        for (const auto& action : current->room.getActions()) {
+        auto roomActions = current->room.getActions();
+        for (const auto& action : roomActions) {
             cout << actionNum++ << ". " << action << endl;
         }
 
-        // User chooses an action
         int choice;
-        cout << "Choose an action (1-" << current->room.getActions().size() << "): ";
+        cout << "Choose an action: ";
         cin >> choice;
 
-        // Process choice
-        if (choice < 1 || choice > current->room.getActions().size()) {
-            cout << "Invalid choice. Try again.\n";
-        } else {
-            cout << "You chose: " << current->room.getActions()[choice - 1] << endl;
-            if (choice == current->room.getActions().size()) {  // Assumes 'Leave the room' is the last action
-                current = current->next;  // Move to next room
+        if (choice > 0 && choice <= roomActions.size()) {
+            cout << "You chose: " << roomActions[choice - 1] << endl;
+            // Move to next room if "Leave the room" is chosen (assumed last action)
+            if (choice == roomActions.size()) {
+                current = current->next;
             }
+        } else {
+            cout << "Invalid choice.\n";
         }
     }
 
-    cout << "You have reached the end of your adventure!\n";
+    cout << "Adventure Complete!\n";
     return 0;
 }
