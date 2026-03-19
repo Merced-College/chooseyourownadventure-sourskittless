@@ -5,12 +5,12 @@
 
 class Food {
 private:
-    std::string type;
-    int healthValue;
+    std::string name;
+    int benefit;
 
 public:
-    Food(std::string type, int healthValue);
-    void consume() const;
+    Food(std::string name, int benefit);
+    void eat() const;
 };
 
 #endif

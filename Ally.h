@@ -6,11 +6,12 @@
 class Ally {
 private:
     std::string name;
-    std::string dialogue;
+    std::string status;
+    int boost;
 
 public:
-    Ally(std::string name, std::string dialogue);
-    void interact() const;
+    Ally(std::string name, std::string status, int boost);
+    void greet() const; 
 };
 
 #endif

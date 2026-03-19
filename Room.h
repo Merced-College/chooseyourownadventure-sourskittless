@@ -14,10 +14,6 @@ private:
 
 public:
     Room(string name, string description, vector<string> actions, string item);
-    void setName(const string& newName);
-    void setDescription(const string& newDescription);
-    void setActions(const vector<string>& newActions);
-    void setItem(const string& newItem);
     string getName() const;
     string getDescription() const;
     vector<string> getActions() const;
